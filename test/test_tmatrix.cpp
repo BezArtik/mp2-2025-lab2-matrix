@@ -12,6 +12,8 @@ TEST(TMatrix, can_create_matrix_with_positive_length)
 TEST(TMatrix, cant_create_too_large_matrix)
 {
     ASSERT_ANY_THROW(TMatrix<int> m(MAX_MATRIX_SIZE + 1, MAX_MATRIX_SIZE + 1));
+    ASSERT_ANY_THROW(TMatrix<int> m(rows, MAX_MATRIX_SIZE + 1));
+    ASSERT_ANY_THROW(TMatrix<int> m(MAX_MATRIX_SIZE + 1, cols));
 }
 
 TEST(TMatrix, throws_when_create_matrix_with_zero_size)
@@ -48,13 +50,10 @@ TEST(TMatrix, copied_matrix_has_its_own_memory)
         }
     }
     TMatrix<int> m1(m);
-
     EXPECT_NE(&m[0], &m1[0]);
-
     m1[1][1] = 10;
     EXPECT_EQ(m[1][1], 3);
     EXPECT_EQ(m1[1][1], 10);
-
     m[1][1] = 100;
     EXPECT_EQ(m[1][1], 100);
     EXPECT_EQ(m1[1][1], 10);

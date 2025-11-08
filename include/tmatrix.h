@@ -218,9 +218,8 @@ public:
         return *this;
     }
 
-    TMatrix(TMatrix&& m) noexcept : rows(m.rows), cols(m.cols), Base(std::move(m)) {
-        m.rows = 0; m.cols = 0;
-    }
+
+    TMatrix(TMatrix&& m) noexcept : rows(m.rows), cols(m.cols), Base(std::move(m)) {}
 
     TMatrix& operator=(TMatrix&& m) noexcept {
         if (this == &m) {
@@ -234,15 +233,8 @@ public:
         return *this;
     }
 
-    TVector<T>& operator[](size_t ind) {
-        CheckIndex(ind);
-        return Base::operator[](ind);
-    }
-
-    const TVector<T>& operator[](size_t ind) const {
-        CheckIndex(ind);
-        return Base::operator[](ind);
-    }
+    TVector<T>& operator[](size_t ind) noexcept { return Base::operator[](ind); }
+    const TVector<T>& operator[](size_t ind) const noexcept { return Base::operator[](ind); }
 
     TVector<T>& at(size_t ind) {
         CheckIndex(ind);
