@@ -40,7 +40,12 @@ public:
     }
 
     TVector(const T* arr, size_t s) : sz(s), pMem(new T[sz]()) {
-        assert(arr != nullptr && "TVector ctor requires non-nullptr arg");
+        if (!arr) {
+            throw std::invalid_argument("Invalid pointer");
+        }
+        if (sz == 0 || sz > MAX_VECTOR_SIZE) {
+            throw std::out_of_range("Invalid vector size");
+        }
         std::copy(arr, arr + sz, pMem);
     }
 
