@@ -187,7 +187,7 @@ private:
             throw std::out_of_range("Row index out of range");
         }
     }
-    static void CheckSize(const TMatrix& m1, const TMatrix& m2) {
+    void CheckSize(const TMatrix& m1, const TMatrix& m2) const {
         if (m1.rows != m2.rows || m1.cols != m2.cols) {
             throw std::invalid_argument("Matrix sizes don't match");
         }
@@ -204,6 +204,7 @@ public:
         if (rows == 0 || cols == 0 || rows > MAX_MATRIX_SIZE || cols > MAX_MATRIX_SIZE) {
             throw std::out_of_range("Invalid matrix size");
         }
+
         for (size_t i = 0; i < rows; ++i) {
             (*this)[i] = TVector<T>(cols);
         }
